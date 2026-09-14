@@ -1,0 +1,19 @@
+{
+    "player": "Chance",
+    "weeks": [
+        {
+            "week": 1,
+            "locked_at": "2026-09-13T00:00:00Z",
+            "picks": [
+                {
+                    "game": "BAL@IND",
+                    "bet": "BAL",
+                    "type": "side",
+                    "spread": -3.5,
+                    "odds": -105,
+                    "locked_at": "2026-09-13T00:00:00Z"
+                }
+            ]
+        }
+    ]
+}

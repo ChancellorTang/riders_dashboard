@@ -1,0 +1,150 @@
+{
+  "week": 1,
+  "updated_at": "2026-09-14T17:18:45.751985+00:00",
+  "games": [
+    {
+      "game_id": "DEN@KC",
+      "away_team": "DEN",
+      "start_time": "2026-09-15T00:15Z",
+      "home_team": "KC",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "NE@SEA",
+      "away_team": "NE",
+      "start_time": "2026-09-10T00:20Z",
+      "home_team": "SEA",
+      "home_score": 13,
+      "away_score": 10,
+      "status": "final"
+    },
+    {
+      "game_id": "SF@LAR",
+      "away_team": "SF",
+      "start_time": "2026-09-11T00:35Z",
+      "home_team": "LAR",
+      "home_score": 7,
+      "away_score": 27,
+      "status": "final"
+    },
+    {
+      "game_id": "TB@CIN",
+      "away_team": "TB",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "CIN",
+      "home_score": 33,
+      "away_score": 27,
+      "status": "final"
+    },
+    {
+      "game_id": "NO@DET",
+      "away_team": "NO",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "DET",
+      "home_score": 31,
+      "away_score": 30,
+      "status": "final"
+    },
+    {
+      "game_id": "NYJ@TEN",
+      "away_team": "NYJ",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "TEN",
+      "home_score": 10,
+      "away_score": 23,
+      "status": "final"
+    },
+    {
+      "game_id": "BAL@IND",
+      "away_team": "BAL",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "IND",
+      "home_score": 23,
+      "away_score": 41,
+      "status": "final"
+    },
+    {
+      "game_id": "ATL@PIT",
+      "away_team": "ATL",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "PIT",
+      "home_score": 20,
+      "away_score": 13,
+      "status": "final"
+    },
+    {
+      "game_id": "CHI@CAR",
+      "away_team": "CHI",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "CAR",
+      "home_score": 37,
+      "away_score": 59,
+      "status": "final"
+    },
+    {
+      "game_id": "CLE@JAX",
+      "away_team": "CLE",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "JAX",
+      "home_score": 34,
+      "away_score": 10,
+      "status": "final"
+    },
+    {
+      "game_id": "BUF@HOU",
+      "away_team": "BUF",
+      "start_time": "2026-09-13T17:00Z",
+      "home_team": "HOU",
+      "home_score": 31,
+      "away_score": 36,
+      "status": "final"
+    },
+    {
+      "game_id": "MIA@LV",
+      "away_team": "MIA",
+      "start_time": "2026-09-13T20:25Z",
+      "home_team": "LV",
+      "home_score": 27,
+      "away_score": 13,
+      "status": "final"
+    },
+    {
+      "game_id": "GB@MIN",
+      "away_team": "GB",
+      "start_time": "2026-09-13T20:25Z",
+      "home_team": "MIN",
+      "home_score": 39,
+      "away_score": 22,
+      "status": "final"
+    },
+    {
+      "game_id": "WSH@PHI",
+      "away_team": "WSH",
+      "start_time": "2026-09-13T20:25Z",
+      "home_team": "PHI",
+      "home_score": 24,
+      "away_score": 22,
+      "status": "final"
+    },
+    {
+      "game_id": "ARI@LAC",
+      "away_team": "ARI",
+      "start_time": "2026-09-13T20:25Z",
+      "home_team": "LAC",
+      "home_score": 14,
+      "away_score": 26,
+      "status": "final"
+    },
+    {
+      "game_id": "DAL@NYG",
+      "away_team": "DAL",
+      "start_time": "2026-09-14T00:20Z",
+      "home_team": "NYG",
+      "home_score": 28,
+      "away_score": 20,
+      "status": "final"
+    }
+  ]
+}

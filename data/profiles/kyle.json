@@ -1,0 +1,19 @@
+{
+    "player": "Kyle",
+    "weeks": [
+        {
+            "week": 1,
+            "locked_at": "2026-09-13T00:00:00Z",
+            "picks": [
+                {
+                    "game": "CLE@JAX",
+                    "bet": "CLE",
+                    "type": "side",
+                    "spread": 8.5,
+                    "odds": -108,
+                    "locked_at": "2026-09-13T00:00:00Z"
+                }
+            ]
+        }
+    ]
+}

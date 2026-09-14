@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Riders Picks Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">NEON NFL / PICKS CHALLENGE</p>
+          <h1>The Riders Betting Board</h1>
+        </div>
+      </header>
+
+      <nav id="week-tabs" class="week-tabs" aria-label="Week navigation"></nav>
+
+      <main>
+        <section id="home-view" class="view-panel active">
+          <div class="summary-grid">
+            <article class="panel panel-home">
+              <div class="panel-header">
+                <p class="panel-kicker">HOME</p>
+                <h2>This Week's Picks</h2>
+              </div>
+              <div id="this-weeks-picks" class="mini-list"></div>
+            </article>
+
+            <article class="panel panel-home standings-panel">
+              <div class="panel-header">
+                <p class="panel-kicker">STANDINGS</p>
+                <h2>Current Standings</h2>
+              </div>
+              <div id="standings-table" class="standings-table"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="week-view" class="view-panel">
+          <div class="week-header-row">
+            <div>
+              <p class="eyebrow">WEEK BOARD</p>
+              <h2 id="week-title">Week 1</h2>
+            </div>
+          </div>
+
+          <div id="week-content" class="week-content"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

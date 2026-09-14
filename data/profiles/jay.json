@@ -1,0 +1,19 @@
+{
+    "player": "Jay",
+    "weeks": {
+        "1": {
+            "week": 1,
+            "locked_at": "2026-09-14T17:18:45.752707+00:00",
+            "picks": [
+                {
+                    "game": "DEN@KC",
+                    "bet": "DEN",
+                    "spread": 2.5,
+                    "type": "side",
+                    "odds": -105,
+                    "locked_at": "2026-09-13T00:00:00Z"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "player": "Joe",
+    "weeks": {
+        "1": {
+            "week": 1,
+            "locked_at": "2026-09-14T01:14:38.891514+00:00",
+            "picks": [
+                {
+                    "game": "ARI@LAC",
+                    "bet": "LAC",
+                    "type": "side",
+                    "spread": -9.5,
+                    "odds": -115,
+                    "locked_at": "2026-09-13T00:00:00Z"
+                }
+            ]
+        }
+    }
+}
