@@ -23,6 +23,19 @@ async function init() {
   await loadDashboardData();
   buildWeekTabs();
   render();
+  startAutoRefresh();
+}
+
+function startAutoRefresh() {
+  setInterval(async () => {
+    await loadDashboardData();
+    render();
+  }, 5000);
+
+  window.addEventListener("focus", async () => {
+    await loadDashboardData();
+    render();
+  });
 }
 
 async function loadDashboardData() {
@@ -32,7 +45,7 @@ async function loadDashboardData() {
 
   for (const player of profileFiles) {
     try {
-      const response = await fetch(`./data/profiles/${player}.json`);
+      const response = await fetch(`./data/profiles/${player}.json`, { cache: "no-store" });
       if (!response.ok) continue;
       const profile = await response.json();
       const weeks = Array.isArray(profile.weeks) ? profile.weeks : Object.values(profile.weeks || {});
@@ -74,7 +87,7 @@ async function loadDashboardData() {
   for (const weekName of state.weeks) {
     const weekNumber = parseWeekNumber(weekName);
     try {
-      const response = await fetch(`./data/week_${weekNumber}/results.json`);
+      const response = await fetch(`./data/week_${weekNumber}/results.json`, { cache: "no-store" });
       if (!response.ok) continue;
       const payload = await response.json();
       const map = {};
