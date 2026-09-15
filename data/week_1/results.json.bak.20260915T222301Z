@@ -1,7 +1,16 @@
 {
   "week": 1,
-  "updated_at": "2026-09-15T22:23:01.609288Z",
+  "updated_at": "2026-09-14T17:18:45.751985+00:00",
   "games": [
+    {
+      "game_id": "DEN@KC",
+      "away_team": "DEN",
+      "start_time": "2026-09-15T00:15Z",
+      "home_team": "KC",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
     {
       "game_id": "NE@SEA",
       "away_team": "NE",
@@ -135,15 +144,6 @@
       "home_team": "NYG",
       "home_score": 28,
       "away_score": 20,
-      "status": "final"
-    },
-    {
-      "game_id": "DEN@KC",
-      "away_team": "DEN",
-      "start_time": "2026-09-15T00:15Z",
-      "home_team": "KC",
-      "home_score": 31,
-      "away_score": 10,
       "status": "final"
     }
   ]
