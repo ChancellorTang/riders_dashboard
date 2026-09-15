@@ -129,6 +129,37 @@ This app is designed to be deployed as a static site.
 4. Push to GitHub.
 5. Refresh the page to view the latest standings.
 
+## Updating results programmatically
+
+You can use the provided script `scripts/update_results.py` to write or merge a week's `results.json` from a local file or a remote URL. The script will back up any existing `data/week_<n>/results.json` before writing.
+
+Examples:
+
+- Write a local file as week 1 results:
+
+```bash
+python3 scripts/update_results.py --source /path/to/source.json --week 1
+```
+
+- Fetch and replace from a remote URL:
+
+```bash
+python3 scripts/update_results.py --url https://example.com/week1.json --week 1
+```
+
+- Merge incoming games into existing results by `game_id` (keeps existing games unless replaced):
+
+```bash
+python3 scripts/update_results.py --source /path/to/source.json --week 1 --merge
+```
+
+Notes:
+
+- The script expects the input JSON to be an object with a top-level `games` array.
+- Backups are written alongside the destination file with a `.bak.<timestamp>` suffix.
+- The destination path is `data/week_<week>/results.json` inside the project root.
+
+
 ## Important limitations
 
 - This is intentionally a read-only static dashboard.
