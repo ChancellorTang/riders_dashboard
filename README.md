@@ -125,11 +125,28 @@ reports what it can see.
 ### 4. The cron
 
 `.github/workflows/sync.yml` runs `scripts/sync.py` every 15 minutes during
-game windows. Add `MONGODB_URI` under the repo's
-**Settings → Secrets and variables → Actions**, then run the workflow once by
-hand from the Actions tab to confirm it works.
+game windows, plus a daily `--all` reconcile sweep at 08:00 ET that catches
+anything a missed run left ungraded.
 
-Free on public repos. On a private repo it uses Actions minutes.
+1. Repo **Settings → Secrets and variables → Actions → New repository secret**
+2. Name `MONGODB_URI`. **Use the read-write Atlas user** — the read-only one
+   the site uses can't write grades back.
+3. Actions tab → *Sync ESPN scores and grade picks* → **Run workflow** to
+   confirm it works before trusting the schedule.
+
+Free on public repos; a private repo spends Actions minutes.
+
+Two things about GitHub's scheduler worth knowing:
+
+- **It disables scheduled workflows after 60 days with no commits to the
+  repo.** GitHub emails you first. Any commit resets the clock, so this only
+  bites in a quiet off-season.
+- **Cron times are best-effort.** Runs are often 5-15 minutes late at peak,
+  occasionally more. Fine for scores; don't build anything time-critical on
+  it.
+
+Vercel Cron is not an option here: on the Hobby plan it is capped at **once
+per day** with up to 59 minutes of jitter.
 
 ### 5. The bot
 

@@ -1,0 +1,66 @@
+name: Sync ESPN scores and grade picks
+
+# Pulls the live scoreboard into MongoDB and grades any pick the final scores
+# settle. Idempotent — it only writes a result that changed, so running it more
+# often than necessary costs nothing but a few seconds of CI.
+
+on:
+  schedule:
+    # All times UTC. NFL windows, in ET:
+    - cron: "*/15 17-23 * * 0"      # Sun 1pm-7pm ET   — the main slate
+    - cron: "*/15 0-5 * * 1"        # Sun 8pm-2am ET   — SNF + late games
+    - cron: "*/15 0-5 * * 2"        # Mon 8pm-2am ET   — MNF
+    - cron: "*/15 0-5 * * 5"        # Thu 8pm-2am ET   — TNF
+    - cron: "*/15 17-23 * * 6"      # Sat 1pm-7pm ET   — late-season Saturdays
+    - cron: "0 12 * * *"            # daily 8am ET     — full reconcile sweep
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Week to sync (blank = live week)"
+        required: false
+      all:
+        description: "Sync every known week"
+        type: boolean
+        default: false
+
+# Never let two syncs write at once; skip rather than queue up a backlog.
+concurrency:
+  group: riders-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Sync and grade
+        env:
+          # Must be the read-WRITE Atlas user. The read-only one the site uses
+          # cannot grade picks.
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          RIDERS_SEASON: ${{ vars.RIDERS_SEASON || '2026' }}
+          # Passed through the environment rather than interpolated into the
+          # script, so a crafted input can't inject shell.
+          SCHEDULE: ${{ github.event.schedule }}
+          IN_ALL: ${{ inputs.all }}
+          IN_WEEK: ${{ inputs.week }}
+        run: |
+          if [ "$IN_ALL" = "true" ] || [ "$SCHEDULE" = "0 12 * * *" ]; then
+            python3 scripts/sync.py --all
+          elif [ -n "$IN_WEEK" ]; then
+            python3 scripts/sync.py --week "$IN_WEEK"
+          else
+            python3 scripts/sync.py
+          fi
