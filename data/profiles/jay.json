@@ -11,7 +11,8 @@
                     "type": "side",
                     "spread": -9.5,
                     "odds": -115,
-                    "locked_at": "2026-09-13T00:00:00Z"
+                    "locked_at": "2026-09-13T00:00:00Z",
+                    "units": 1
                 }
             ]
         }

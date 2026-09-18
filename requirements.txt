@@ -1,0 +1,4 @@
+# Installed by Vercel for the api/*.py functions, and used by scripts/.
+pymongo>=4.6
+dnspython>=2.4     # required for mongodb+srv:// Atlas connection strings
+certifi>=2024.2    # CA bundle; macOS system Python often lacks a usable one

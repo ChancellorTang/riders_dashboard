@@ -1,183 +1,205 @@
-# Vice City Picks Challenge
+# The Riders Picks Challenge
 
-A static dashboard for tracking a small weekly NFL picks league. It renders the league standings and each week's picks directly from committed JSON files, so it works well for a GitHub Pages deployment without needing a backend.
+A weekly NFL picks league for four people. Picks arrive through a Discord bot,
+get stored in MongoDB, and are graded automatically against ESPN's scoreboard.
+The board is a public web page that updates itself.
 
-## What this project does
-
-- Shows a home screen with:
-  - this week's picks
-  - current standings
-  - wins / losses / pushes and net value
-- Shows a week-by-week board for each player
-- Resolves picks against weekly game results in the JSON data files
-- Requires no database or server-side write logic
-
-## Project structure
-
-```text
-.
-├── app.js
-├── index.html
-├── styles.css
-├── README.md
-├── data/
-│   ├── profiles/
-│   │   ├── chance.json
-│   │   ├── jay.json
-│   │   ├── joe.json
-│   │   └── kyle.json
-│   └── week_1/
-│       └── results.json
-└── .gitignore
+```
+ #picks channel          Ollama            MongoDB Atlas        Vercel
+ ───────────────         ──────            ─────────────        ──────
+ "2u BAL -3.5    ──▶  extract &  ──▶  picks collection  ──▶  /api/bootstrap
+  at -110"             normalise              ▲                    │
+                                              │                    ▼
+                    ESPN scoreboard ──▶  scripts/sync.py      index.html
+                    (every 15 min)         grade picks        (the board)
 ```
 
-## Data model
+## What lives where
 
-### Player profile files
+| path | what it is |
+|---|---|
+| `index.html`, `app.js`, `styles.css` | the board |
+| `api/*.py` | Vercel serverless functions, one file per route |
+| `riders/` | shared core — team resolution, pick schema, grading, ESPN, Mongo |
+| `scripts/sync.py` | fetch scores, grade picks. **The whole backend loop.** |
+| `scripts/seed.py` | one-time migration of the old JSON into Mongo |
+| `scripts/dev_server.py` | run the site + API locally, the way Vercel wires them |
+| `data/` | the original JSON, kept as a seed and an offline fallback |
+| `../discord_bot/` | the bot that collects picks |
 
-Each player profile is stored in `data/profiles/<player>.json`.
+`riders/` is deliberately shared by all three entry points, so there is exactly
+one definition of what a pick is and one implementation of grading. The bot
+reaches it by path (`sys.path` in `bot.py`); Vercel picks it up automatically
+because it sits in the project root.
 
-Example shape:
+## The data model
+
+One MongoDB database, three collections.
+
+**`picks`** — one document per bet, `_id` is the Discord message id so a
+gateway reconnect can't duplicate one.
 
 ```json
 {
-  "player": "Chance",
-  "weeks": [
-    {
-      "week": 1,
-      "locked_at": "2026-09-13T00:00:00Z",
-      "picks": [
-        {
-          "game": "BAL@IND",
-          "bet": "BAL",
-          "type": "side",
-          "spread": -3.5,
-          "odds": -105,
-          "locked_at": "2026-09-13T00:00:00Z"
-        }
-      ]
-    }
-  ]
+  "_id": "1234567890",
+  "season": 2026, "week": 2,
+  "rider": "Chance",
+  "game_id": "BAL@IND",
+  "market": "side",          // side | total | moneyline
+  "bet": "BAL",              // team abbr, or "over"/"under"
+  "line": -3.5,              // spread or total; null for moneyline
+  "odds": -105, "units": 1.0,
+  "status": "graded",        // pending | confirmed | rejected | graded
+  "result": "win", "payout_units": 0.95
 }
 ```
 
-### Weekly results files
+`line` is always from the perspective of the team bet: add it to their score
+and compare to the opponent. A favourite is negative.
 
-Each week's game results are stored in `data/week_<n>/results.json`.
+**The ledger is in units, never dollars.** `units` is what the rider risked
+(1 unit unless they said otherwise) and `payout_units` is the profit or loss
+in units. That keeps the board comparable no matter how much actual money
+anyone puts up. A 1-unit bet at -110 wins 0.91u and loses 1.00u.
 
-Example shape:
+An unpriced spread or total grades at the standard **-110** rather than at
+even money — grading those at even money would pay every unpriced winner
+1.00u instead of 0.91u and quietly inflate the board. A moneyline has no
+standard price, so an unpriced one is left ungraded instead of guessed at.
 
-```json
-{
-  "week": 1,
-  "updated_at": "2026-09-14T17:18:45.751985+00:00",
-  "games": [
-    {
-      "game_id": "BAL@IND",
-      "away_team": "BAL",
-      "home_team": "IND",
-      "away_score": 41,
-      "home_score": 23,
-      "status": "final"
-    }
-  ]
-}
+**`results`** — one document per week, holding that week's ESPN slate.
+**`riders`** — Discord user id → display name.
+
+### Status lifecycle
+
+```
+ pending ──✅──▶ confirmed ──sync.py──▶ graded
+    │                                     
+    └──❌/✏️──▶ rejected               
 ```
 
-Notes:
+Only `confirmed` picks are graded, and a pick is only graded against a game
+ESPN reports as `final`. A half-finished slate or a bot outage can never write
+a result someone has to undo.
 
-- `game_id` must match the `game` value used in the player picks.
-- A game can be `pending` until the result is locked in.
-- Final results are only used to resolve picks once `status` is `final`.
+---
 
-## How to run locally
+## Deploying
 
-Because this is a static app, you can run it in one of two ways:
+Everything below is free except the machine the bot runs on.
 
-### Option 1: Open directly in a browser
+### 1. MongoDB Atlas
 
-Open `index.html` directly in the browser.
+1. Create a free **M0** cluster at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas/register).
+2. Database Access → add a user with **Read and write to any database**.
+3. Network Access → add `0.0.0.0/0`. Vercel's functions don't have fixed IPs,
+   so the access list can't be narrower; the password is what protects you.
+4. Connect → Drivers → copy the `mongodb+srv://…` string.
 
-### Option 2: Serve it locally
-
-From the project root:
+### 2. Seed it
 
 ```bash
-python3 -m http.server 8000
+cd riders_dashboard
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+export MONGODB_URI='mongodb+srv://...'
+
+.venv/bin/python scripts/seed.py --dry-run   # look first
+.venv/bin/python scripts/seed.py             # then write
+.venv/bin/python scripts/sync.py --all       # pull scores, grade everything
 ```
 
-Then open:
+None of the historical picks recorded a size, so each seeds at 1 unit. Pass
+`--units` if they should count for more.
 
-```text
-http://localhost:8000
-```
+### 3. Vercel
 
-## Deploying to GitHub Pages
+1. [vercel.com/new](https://vercel.com/new) → import the GitHub repo.
+2. Set **Root Directory** to `riders_dashboard`.
+3. Settings → Environment Variables → add `MONGODB_URI` (and `RIDERS_SEASON`
+   if it isn't 2026). Apply to Production, Preview and Development.
+4. Deploy. You get `https://<project>.vercel.app`.
 
-This app is designed to be deployed as a static site.
+Check `https://<project>.vercel.app/api/health` first — it pings Atlas and
+reports what it can see.
 
-1. Push the repo to GitHub.
-2. Enable GitHub Pages in the repository settings.
-3. Use the root branch or a docs folder if needed.
-4. The dashboard will load the JSON files from the repo as-is.
+### 4. The cron
 
-## Weekly update workflow
+`.github/workflows/sync.yml` runs `scripts/sync.py` every 15 minutes during
+game windows. Add `MONGODB_URI` under the repo's
+**Settings → Secrets and variables → Actions**, then run the workflow once by
+hand from the Actions tab to confirm it works.
 
-1. Update the player profile JSON files with the current week's picks.
-2. Add or update the weekly results file in `data/week_<n>/results.json`.
-3. Commit the changes.
-4. Push to GitHub.
-5. Refresh the page to view the latest standings.
+Free on public repos. On a private repo it uses Actions minutes.
 
-## Updating results programmatically
+### 5. The bot
 
-You can use the provided script `scripts/update_results.py` to write or merge a week's `results.json` from a local file or a remote URL. The script will back up any existing `data/week_<n>/results.json` before writing.
+See [`../discord_bot/README.md`](../discord_bot/README.md). It needs an
+always-on process, which is the one piece with no free PaaS tier — Render's
+free web services sleep after 15 minutes and kill the gateway connection. A
+Raspberry Pi, a spare Mac, or an Oracle Cloud Always Free ARM VM all work.
 
-Examples:
+---
 
-- Write a local file as week 1 results:
+## Local development
 
 ```bash
-python3 scripts/update_results.py --source /path/to/source.json --week 1
+export MONGODB_URI='mongodb+srv://...'
+.venv/bin/python scripts/dev_server.py        # http://localhost:8000
 ```
 
-- Fetch and replace from a remote URL:
+Serves the site and routes `/api/*` to the same handler classes Vercel runs,
+so what you see locally is what deploys.
+
+With no `MONGODB_URI`, opening `index.html` still works — the board falls back
+to the committed JSON in `data/` and grades in the browser. The status line
+under the title tells you which mode you're in:
+
+- 🟢 **Live** — reading the API
+- 🟡 **Static snapshot** — API unreachable, using committed JSON
+- 🔴 **No data source reachable**
+
+## The API
+
+| route | returns |
+|---|---|
+| `GET /api/bootstrap` | everything the board needs, one round trip |
+| `GET /api/picks?week=2` | picks for a week (omit `week` for all) |
+| `GET /api/results?week=2` | that week's ESPN slate and scores |
+| `GET /api/standings?week=2` | leaderboard, season-wide or one week |
+| `GET /api/health` | Atlas connectivity and a row count |
+
+All read-only and CORS-open — the board is public anyway. Discord user ids and
+raw message text are stripped server-side and never reach the page.
+
+Responses carry `s-maxage=10, stale-while-revalidate=30`, so Vercel's edge
+absorbs the polling and Atlas sees a trickle regardless of how many people
+have the board open.
+
+## Running the sync by hand
 
 ```bash
-python3 scripts/update_results.py --url https://example.com/week1.json --week 1
+python3 scripts/sync.py                  # live week
+python3 scripts/sync.py --week 1         # one week
+python3 scripts/sync.py --all            # every week with picks or results
+python3 scripts/sync.py --dry-run        # show what would change
+python3 scripts/sync.py --insecure       # macOS system Python TLS workaround
 ```
 
-- Merge incoming games into existing results by `game_id` (keeps existing games unless replaced):
+Safe to run repeatedly. It only writes a result that changed.
 
-```bash
-python3 scripts/update_results.py --source /path/to/source.json --week 1 --merge
-```
+## Things worth knowing
 
-Notes:
-
-- The script expects the input JSON to be an object with a top-level `games` array.
-- Backups are written alongside the destination file with a `.bak.<timestamp>` suffix.
-- The destination path is `data/week_<week>/results.json` inside the project root.
-
-
-## Important limitations
-
-- This is intentionally a read-only static dashboard.
-- No browser form writes to files.
-- All data updates happen by editing JSON files and pushing the repo.
-- Because of GitHub Pages restrictions, there is no backend to persist changes automatically.
-
-## Required files for the app to run
-
-The dashboard expects these files to exist:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `data/profiles/chance.json`
-- `data/profiles/jay.json`
-- `data/profiles/joe.json`
-- `data/profiles/kyle.json`
-- `data/week_1/results.json`
-
-If a new week is added, create a matching folder and result file such as `data/week_2/results.json`.
+- **ESPN's User-Agent check.** The scoreboard endpoint 403s a custom or
+  browser-spoofed `User-Agent` but allows the default ones. `riders/espn.py`
+  deliberately sends no override — don't add one.
+- **Week numbers come from ESPN**, not from a hardcoded calendar. Asking for
+  the scoreboard with no `week` returns whatever is current, so nothing needs
+  editing when the season rolls over.
+- **Two profile shapes.** `chance.json` and `kyle.json` stored `weeks` as an
+  array; `jay.json` and `joe.json` used an object keyed by week number.
+  `scripts/seed.py` reads both and the inconsistency dies with the migration.
+- **`data/` is now a fallback, not the source of truth.** Editing it won't
+  change the live board. It's kept so the page still renders with no backend.
+- **Rotate the Odds API key.** `test.py` had one hardcoded and it's in this
+  repo's public history (commit `9ab3efc`). Removing it from the working tree
+  does not un-publish it — generate a new one at the-odds-api.com.

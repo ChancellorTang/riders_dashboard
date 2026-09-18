@@ -1,0 +1,150 @@
+{
+  "week": 2,
+  "updated_at": "2026-09-18T16:21:39.726960Z",
+  "games": [
+    {
+      "game_id": "DET@BUF",
+      "away_team": "DET",
+      "start_time": "2026-09-18T00:15Z",
+      "home_team": "BUF",
+      "home_score": 41,
+      "away_score": 31,
+      "status": "final"
+    },
+    {
+      "game_id": "CAR@ATL",
+      "away_team": "CAR",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "ATL",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "MIN@CHI",
+      "away_team": "MIN",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "CHI",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "PHI@TEN",
+      "away_team": "PHI",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "TEN",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "PIT@NE",
+      "away_team": "PIT",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "NE",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "GB@NYJ",
+      "away_team": "GB",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "NYJ",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "CLE@TB",
+      "away_team": "CLE",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "TB",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "NO@BAL",
+      "away_team": "NO",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "BAL",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "CIN@HOU",
+      "away_team": "CIN",
+      "start_time": "2026-09-20T17:00Z",
+      "home_team": "HOU",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "JAX@DEN",
+      "away_team": "JAX",
+      "start_time": "2026-09-20T20:05Z",
+      "home_team": "DEN",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "LV@LAC",
+      "away_team": "LV",
+      "start_time": "2026-09-20T20:05Z",
+      "home_team": "LAC",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "WSH@DAL",
+      "away_team": "WSH",
+      "start_time": "2026-09-20T20:25Z",
+      "home_team": "DAL",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "SEA@ARI",
+      "away_team": "SEA",
+      "start_time": "2026-09-20T20:25Z",
+      "home_team": "ARI",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "MIA@SF",
+      "away_team": "MIA",
+      "start_time": "2026-09-20T20:25Z",
+      "home_team": "SF",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "IND@KC",
+      "away_team": "IND",
+      "start_time": "2026-09-21T00:20Z",
+      "home_team": "KC",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    },
+    {
+      "game_id": "NYG@LAR",
+      "away_team": "NYG",
+      "start_time": "2026-09-22T00:15Z",
+      "home_team": "LAR",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "pending"
+    }
+  ]
+}

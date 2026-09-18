@@ -1,0 +1,760 @@
+{
+  "week": 1,
+  "updated_at": "2026-09-18T18:09:30.645374Z",
+  "games": [
+    {
+      "game_id": "CAR@ATL",
+      "away_team": "CAR",
+      "home_team": "ATL",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "ATL": {
+          "point": 2.5,
+          "odds": 100
+        },
+        "CAR": {
+          "point": -2.5,
+          "odds": -120
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 43.5,
+          "odds": -108
+        },
+        "Under": {
+          "point": 43.5,
+          "odds": -112
+        }
+      }
+    },
+    {
+      "game_id": "NO@BAL",
+      "away_team": "NO",
+      "home_team": "BAL",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "BAL": {
+          "point": -8.5,
+          "odds": -108
+        },
+        "NO": {
+          "point": 8.5,
+          "odds": -112
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 46.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 46.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "MIN@CHI",
+      "away_team": "MIN",
+      "home_team": "CHI",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "CHI": {
+          "point": -4.5,
+          "odds": -110
+        },
+        "MIN": {
+          "point": 4.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 47.5,
+          "odds": -115
+        },
+        "Under": {
+          "point": 47.5,
+          "odds": -105
+        }
+      }
+    },
+    {
+      "game_id": "CIN@HOU",
+      "away_team": "CIN",
+      "home_team": "HOU",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "CIN": {
+          "point": 2.5,
+          "odds": -102
+        },
+        "HOU": {
+          "point": -2.5,
+          "odds": -118
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "CLE@TB",
+      "away_team": "CLE",
+      "home_team": "TB",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "CLE": {
+          "point": 8.5,
+          "odds": -112
+        },
+        "TB": {
+          "point": -8.5,
+          "odds": -108
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 41.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 41.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "GB@NYJ",
+      "away_team": "GB",
+      "home_team": "NYJ",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "GB": {
+          "point": -3.5,
+          "odds": -115
+        },
+        "NYJ": {
+          "point": 3.5,
+          "odds": -105
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 44.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 44.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "PIT@NE",
+      "away_team": "PIT",
+      "home_team": "NE",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "NE": {
+          "point": -5.5,
+          "odds": -105
+        },
+        "PIT": {
+          "point": 5.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 41.5,
+          "odds": -112
+        },
+        "Under": {
+          "point": 41.5,
+          "odds": -108
+        }
+      }
+    },
+    {
+      "game_id": "PHI@TEN",
+      "away_team": "PHI",
+      "home_team": "TEN",
+      "start_time": "2026-09-20T17:00:00Z",
+      "spreads": {
+        "PHI": {
+          "point": -7.0,
+          "odds": -110
+        },
+        "TEN": {
+          "point": 7.0,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 39.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 39.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "JAX@DEN",
+      "away_team": "JAX",
+      "home_team": "DEN",
+      "start_time": "2026-09-20T20:05:00Z",
+      "spreads": {
+        "DEN": {
+          "point": -2.5,
+          "odds": -118
+        },
+        "JAX": {
+          "point": 2.5,
+          "odds": -102
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -108
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -112
+        }
+      }
+    },
+    {
+      "game_id": "LV@LAC",
+      "away_team": "LV",
+      "home_team": "LAC",
+      "start_time": "2026-09-20T20:05:00Z",
+      "spreads": {
+        "LV": {
+          "point": 6.5,
+          "odds": -102
+        },
+        "LAC": {
+          "point": -6.5,
+          "odds": -118
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 43.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 43.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "SEA@ARI",
+      "away_team": "SEA",
+      "home_team": "ARI",
+      "start_time": "2026-09-20T20:25:00Z",
+      "spreads": {
+        "ARI": {
+          "point": 3.5,
+          "odds": 100
+        },
+        "SEA": {
+          "point": -3.5,
+          "odds": -120
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 40.5,
+          "odds": -115
+        },
+        "Under": {
+          "point": 40.5,
+          "odds": -105
+        }
+      }
+    },
+    {
+      "game_id": "WAS@DAL",
+      "away_team": "WAS",
+      "home_team": "DAL",
+      "start_time": "2026-09-20T20:25:00Z",
+      "spreads": {
+        "DAL": {
+          "point": -4.5,
+          "odds": -105
+        },
+        "WAS": {
+          "point": 4.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 50.5,
+          "odds": -112
+        },
+        "Under": {
+          "point": 50.5,
+          "odds": -108
+        }
+      }
+    },
+    {
+      "game_id": "MIA@SF",
+      "away_team": "MIA",
+      "home_team": "SF",
+      "start_time": "2026-09-20T20:25:00Z",
+      "spreads": {
+        "MIA": {
+          "point": 12.5,
+          "odds": -105
+        },
+        "SF": {
+          "point": -12.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 44.5,
+          "odds": -115
+        },
+        "Under": {
+          "point": 44.5,
+          "odds": -105
+        }
+      }
+    },
+    {
+      "game_id": "IND@KC",
+      "away_team": "IND",
+      "home_team": "KC",
+      "start_time": "2026-09-21T00:20:00Z",
+      "spreads": {
+        "IND": {
+          "point": 6.5,
+          "odds": -105
+        },
+        "KC": {
+          "point": -6.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 46.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 46.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "NYG@LAR",
+      "away_team": "NYG",
+      "home_team": "LAR",
+      "start_time": "2026-09-22T00:15:00Z",
+      "spreads": {
+        "LAR": {
+          "point": -7.0,
+          "odds": -118
+        },
+        "NYG": {
+          "point": 7.0,
+          "odds": -102
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 48.5,
+          "odds": -105
+        },
+        "Under": {
+          "point": 48.5,
+          "odds": -115
+        }
+      }
+    },
+    {
+      "game_id": "ATL@GB",
+      "away_team": "ATL",
+      "home_team": "GB",
+      "start_time": "2026-09-25T00:15:00Z",
+      "spreads": {
+        "ATL": {
+          "point": 6.5,
+          "odds": -105
+        },
+        "GB": {
+          "point": -6.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 46.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 46.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "CAR@CLE",
+      "away_team": "CAR",
+      "home_team": "CLE",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "CAR": {
+          "point": -2.5,
+          "odds": -115
+        },
+        "CLE": {
+          "point": 2.5,
+          "odds": -105
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 40.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 40.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "CIN@PIT",
+      "away_team": "CIN",
+      "home_team": "PIT",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "CIN": {
+          "point": -2.5,
+          "odds": -110
+        },
+        "PIT": {
+          "point": 2.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "HOU@IND",
+      "away_team": "HOU",
+      "home_team": "IND",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "HOU": {
+          "point": -2.5,
+          "odds": -110
+        },
+        "IND": {
+          "point": 2.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "NE@JAX",
+      "away_team": "NE",
+      "home_team": "JAX",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "JAX": {
+          "point": -2.5,
+          "odds": -110
+        },
+        "NE": {
+          "point": 2.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "KC@MIA",
+      "away_team": "KC",
+      "home_team": "MIA",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "KC": {
+          "point": -8.5,
+          "odds": -110
+        },
+        "MIA": {
+          "point": 8.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 44.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 44.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "TEN@NYG",
+      "away_team": "TEN",
+      "home_team": "NYG",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "NYG": {
+          "point": -5.5,
+          "odds": -110
+        },
+        "TEN": {
+          "point": 5.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 43.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 43.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "SEA@WAS",
+      "away_team": "SEA",
+      "home_team": "WAS",
+      "start_time": "2026-09-27T17:00:00Z",
+      "spreads": {
+        "SEA": {
+          "point": -2.5,
+          "odds": -110
+        },
+        "WAS": {
+          "point": 2.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 41.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 41.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "ARI@SF",
+      "away_team": "ARI",
+      "home_team": "SF",
+      "start_time": "2026-09-27T20:05:00Z",
+      "spreads": {
+        "ARI": {
+          "point": 8.5,
+          "odds": -110
+        },
+        "SF": {
+          "point": -8.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 47.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 47.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "MIN@TB",
+      "away_team": "MIN",
+      "home_team": "TB",
+      "start_time": "2026-09-27T20:05:00Z",
+      "spreads": {
+        "MIN": {
+          "point": 1.5,
+          "odds": -110
+        },
+        "TB": {
+          "point": -1.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "BAL@DAL",
+      "away_team": "BAL",
+      "home_team": "DAL",
+      "start_time": "2026-09-27T20:25:00Z",
+      "spreads": {
+        "BAL": {
+          "point": -3.0,
+          "odds": -110
+        },
+        "DAL": {
+          "point": 3.0,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 52.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 52.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "LV@NO",
+      "away_team": "LV",
+      "home_team": "NO",
+      "start_time": "2026-09-27T20:25:00Z",
+      "spreads": {
+        "LV": {
+          "point": 3.0,
+          "odds": -110
+        },
+        "NO": {
+          "point": -3.0,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 45.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 45.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "LAR@DEN",
+      "away_team": "LAR",
+      "home_team": "DEN",
+      "start_time": "2026-09-28T00:20:00Z",
+      "spreads": {
+        "DEN": {
+          "point": 2.5,
+          "odds": -110
+        },
+        "LAR": {
+          "point": -2.5,
+          "odds": -110
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 46.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 46.5,
+          "odds": -110
+        }
+      }
+    },
+    {
+      "game_id": "PHI@CHI",
+      "away_team": "PHI",
+      "home_team": "CHI",
+      "start_time": "2026-09-29T00:15:00Z",
+      "spreads": {
+        "CHI": {
+          "point": -1.5,
+          "odds": -105
+        },
+        "PHI": {
+          "point": 1.5,
+          "odds": -115
+        }
+      },
+      "totals": {
+        "Over": {
+          "point": 47.5,
+          "odds": -110
+        },
+        "Under": {
+          "point": 47.5,
+          "odds": -110
+        }
+      }
+    }
+  ]
+}

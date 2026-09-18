@@ -11,7 +11,23 @@
                     "type": "side",
                     "spread": 8.5,
                     "odds": -108,
-                    "locked_at": "2026-09-13T00:00:00Z"
+                    "locked_at": "2026-09-13T00:00:00Z",
+                    "units": 1
+                }
+            ]
+        },
+                {
+            "week": 2,
+            "locked_at": "2026-09-16T00:00:00Z",
+            "picks": [
+                {
+                    "game": "MIA@SF",
+                    "bet": "SF",
+                    "type": "side",
+                    "spread": -12.5,
+                    "odds": -108,
+                    "locked_at": "2026-09-13T00:00:00Z",
+                    "units": 1
                 }
             ]
         }

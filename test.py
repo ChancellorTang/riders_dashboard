@@ -1,15 +1,15 @@
-import requests
+"""Scratch script, superseded.
 
-#lines = requests.get("https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds?regions=us&markets=h2h,spreads,totals&oddsFormat=american&date=2021-10-18T12:00:00Z&apiKey=ee5b562ccf34ae609d640605eb3f4067")
+Fetching ESPN scores now lives in `riders/espn.py`, and the full
+fetch -> store -> grade loop is `scripts/sync.py`:
 
-#for x in lines.json():
-#    print(x["home_team"], "vs", x["away_team"], "@", x["commence_time"])
+    python3 scripts/sync.py            # live week
+    python3 scripts/sync.py --all      # every week
 
+This file previously had a The Odds API key hardcoded in it. That key is in
+this repo's public git history (commit 9ab3efc) and must be rotated at
+the-odds-api.com; removing it here does not un-publish it. Read keys from the
+environment instead:
 
-#with open("odds.json", "w") as f:
-#    f.write(lines.text)
-
-scores = requests.get("https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=1") 
-
-with open("data/week1.json", "w") as f:
-    f.write(scores.text)
+    os.environ["ODDS_API_KEY"]
+"""

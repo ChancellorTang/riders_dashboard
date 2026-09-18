@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+.env
+.env.local
+*.local
+
+.vercel/
+.DS_Store
+
+# Superseded by MongoDB; kept out of the repo so stale copies don't mislead.
+data/**/*.bak.*
+riders.db
