@@ -1,6 +1,6 @@
 """GET /api/results?week=2&season=2026 — the ESPN slate and scores for a week."""
 
-from _common import JSONHandler, season_of, week_of
+from riders.webapi import JSONHandler, season_of, week_of
 from riders import db
 
 

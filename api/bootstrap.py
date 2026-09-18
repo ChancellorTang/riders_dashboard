@@ -5,7 +5,7 @@ standings into a single request keeps it to one Atlas round trip per refresh
 instead of four.
 """
 
-from _common import JSONHandler, public_pick, season_of, week_of
+from riders.webapi import JSONHandler, public_pick, season_of, week_of
 from riders import db, grading
 
 

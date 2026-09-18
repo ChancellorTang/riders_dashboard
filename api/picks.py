@@ -1,6 +1,6 @@
 """GET /api/picks?week=2&season=2026 — picks for a week (omit week for all)."""
 
-from _common import JSONHandler, public_pick, season_of, week_of
+from riders.webapi import JSONHandler, public_pick, season_of, week_of
 from riders import db
 
 

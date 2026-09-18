@@ -1,6 +1,6 @@
 """GET /api/health — is the function warm and can it reach Atlas?"""
 
-from _common import JSONHandler
+from riders.webapi import JSONHandler
 from riders import db
 
 

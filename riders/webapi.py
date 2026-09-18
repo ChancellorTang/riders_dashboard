@@ -1,21 +1,22 @@
-"""Shared helpers for the Vercel Python functions.
+"""Shared helpers for the HTTP API.
 
-Each endpoint is a tiny ``BaseHTTPRequestHandler`` — that is the interface
+Each endpoint in ``api/`` is a tiny ``BaseHTTPRequestHandler`` — the interface
 Vercel's Python runtime expects — so the boilerplate for JSON, CORS, caching
 and error handling lives here instead of in every file.
+
+This deliberately lives inside the ``riders`` package rather than as
+``api/_common.py``. Vercel loads each function by file path with only the task
+root on ``sys.path``, so a sibling import between two files in ``api/`` raises
+ModuleNotFoundError at runtime even though it resolves locally. The package is
+at the task root, so importing from here always works.
 """
 
 import json
-import os
-import sys
 import traceback
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
 
-# api/ sits one level below the project root, where the `riders` package lives.
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from riders import db  # noqa: E402
+from . import db
 
 # Browsers poll this every few seconds. A short shared-cache window keeps
 # Atlas well inside the free tier's 100 ops/sec without the board ever looking

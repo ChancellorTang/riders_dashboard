@@ -1,6 +1,6 @@
 """GET /api/standings?season=2026&week=2 — leaderboard, season-wide or one week."""
 
-from _common import JSONHandler, season_of, week_of
+from riders.webapi import JSONHandler, season_of, week_of
 from riders import db, grading
 
 

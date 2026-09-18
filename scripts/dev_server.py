@@ -19,10 +19,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 API_DIR = ROOT / "api"
+# Only the project root, matching what Vercel puts on sys.path — so an import
+# that works here is one that will work deployed.
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(API_DIR))
 
-from _common import JSONHandler  # noqa: E402
+from riders.webapi import JSONHandler  # noqa: E402
 
 
 def load_endpoints():
