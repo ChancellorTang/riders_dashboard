@@ -68,7 +68,28 @@ even money — grading those at even money would pay every unpriced winner
 standard price, so an unpriced one is left ungraded instead of guessed at.
 
 **`results`** — one document per week, holding that week's ESPN slate.
+**`odds`** — one document per week, holding consensus market lines.
 **`riders`** — Discord user id → display name.
+
+### Line fact-checking
+
+A stated line more than **1.5 points** from the market gets replaced by the
+market number, and the rider is asked to confirm. What they originally said is
+kept in `stated_line`, so a correction is always visible rather than silently
+rewriting history.
+
+The consensus is the **median across every book**, snapped to the half point —
+a rider quoting FanDuel shouldn't be flagged for disagreeing with DraftKings,
+and a raw median lands on numbers like `-8.75` that no book would post.
+
+The Odds API free tier is **500 credits a month** and a spreads+totals call
+costs 2, so roughly 240 calls. Lines are therefore fetched on a TTL by
+`scripts/sync.py` and cached in Mongo; the bot only ever reads the cache and
+never calls the API itself. Tune with `RIDERS_LINE_TOLERANCE` (default `1.5`)
+and `RIDERS_ODDS_TTL_MIN` (default `60`).
+
+Without `ODDS_API_KEY` the check is skipped entirely and picks are logged as
+stated — the feature degrades rather than breaking.
 
 ### Status lifecycle
 
@@ -131,6 +152,7 @@ anything a missed run left ungraded.
 1. Repo **Settings → Secrets and variables → Actions → New repository secret**
 2. Name `MONGODB_URI`. **Use the read-write Atlas user** — the read-only one
    the site uses can't write grades back.
+   Add `ODDS_API_KEY` too if you want the line fact-check; it's optional.
 3. Actions tab → *Sync ESPN scores and grade picks* → **Run workflow** to
    confirm it works before trusting the schedule.
 
@@ -200,6 +222,8 @@ python3 scripts/sync.py --week 1         # one week
 python3 scripts/sync.py --all            # every week with picks or results
 python3 scripts/sync.py --dry-run        # show what would change
 python3 scripts/sync.py --insecure       # macOS system Python TLS workaround
+python3 scripts/sync.py --skip-odds      # never touch the Odds API
+python3 scripts/sync.py --force-odds     # refresh lines even if cached
 ```
 
 Safe to run repeatedly. It only writes a result that changed.

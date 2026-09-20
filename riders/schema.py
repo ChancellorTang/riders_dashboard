@@ -14,6 +14,7 @@ Status lifecycle
 
 from datetime import datetime, timezone
 
+from . import odds as odds_mod
 from . import teams
 
 MARKETS = ("side", "total", "moneyline")
@@ -47,6 +48,7 @@ def build(
     market="side",
     bet=None,
     line=None,
+    stated_line=None,
     odds=None,
     units=None,
     game_id=None,
@@ -71,6 +73,9 @@ def build(
         "market": market,
         "bet": bet,
         "line": None if line is None else float(line),
+        # What the rider actually typed, when the market disagreed enough that
+        # `line` was replaced. None means the two agreed (or nothing to check).
+        "stated_line": None if stated_line is None else float(stated_line),
         "odds": None if odds is None else int(odds),
         "units": DEFAULT_UNITS if units is None else float(units),
         "confidence": None if confidence is None else float(confidence),
@@ -169,13 +174,19 @@ def match_game(game_id_hint, event_raw, raw_text, slate):
 
 
 def from_parsed(parsed, *, pick_id, week, season, slate, rider=None,
-                discord_user_id=None, source="text", raw_text=None, posted_at=None):
+                discord_user_id=None, source="text", raw_text=None, posted_at=None,
+                market_lines=None):
     """Turn raw parser output into a canonical pick document.
 
     Returns ``(doc, problems)``. ``problems`` is a list of human-readable
     reasons the pick is not fully resolved — an unmatched game, an unknown
-    market, a missing stake. The caller decides what to do with them; the bot
-    uses them to force a confirmation instead of auto-confirming.
+    market, a line that disagrees with the book. The caller decides what to do
+    with them; the bot uses them to force a confirmation instead of
+    auto-confirming.
+
+    ``market_lines`` is the cached Odds API map. When supplied, a stated line
+    more than the tolerance away from the consensus is replaced by the
+    consensus and the original is kept in ``stated_line``.
     """
     problems = []
 
@@ -200,6 +211,23 @@ def from_parsed(parsed, *, pick_id, week, season, slate, rider=None,
         problems.append("no spread stated")
     if market == "total" and line is None:
         problems.append("no total stated")
+
+    # Fact-check against the book. A line far from the market usually means a
+    # misread slip or a half-remembered number, so take the market's version
+    # and make the rider agree to it rather than silently grading their claim.
+    stated_line = None
+    if market_lines and game_id and line is not None:
+        consensus = odds_mod.market_line(market_lines, game_id, market, bet)
+        verdict, consensus = odds_mod.check(line, consensus)
+        if verdict == "off":
+            stated_line = line
+            line = consensus
+            problems.append(
+                f"line disagrees with the book: you said {stated_line:+g}, "
+                f"market is {consensus:+g} — using {consensus:+g}"
+                if market == "side" else
+                f"total disagrees with the book: you said {stated_line:g}, "
+                f"market is {consensus:g} — using {consensus:g}")
 
     # An unsized pick is simply one unit, so silence is not a problem here.
     units = parsed.get("units")
@@ -231,6 +259,7 @@ def from_parsed(parsed, *, pick_id, week, season, slate, rider=None,
         market=market or "side",
         bet=bet,
         line=signed_line(market, line),
+        stated_line=stated_line,
         odds=parsed.get("odds"),
         units=units,
         game_id=game_id,

@@ -50,6 +50,9 @@ jobs:
           # Must be the read-WRITE Atlas user. The read-only one the site uses
           # cannot grade picks.
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          # Optional. Without it the market-line fact-check is simply skipped
+          # and picks are logged exactly as stated.
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           RIDERS_SEASON: ${{ vars.RIDERS_SEASON || '2026' }}
           # Passed through the environment rather than interpolated into the
           # script, so a crafted input can't inject shell.

@@ -13,6 +13,8 @@ instead of opening a new one per request.
 import os
 from functools import lru_cache
 
+import certifi
+
 from pymongo import ASCENDING, MongoClient, UpdateOne
 
 DB_NAME = os.environ.get("RIDERS_DB", "riders")
@@ -26,7 +28,16 @@ def client():
         raise RuntimeError(
             "MONGODB_URI is not set. Copy it from Atlas > Connect > Drivers."
         )
-    return MongoClient(uri, appname="riders", serverSelectionTimeoutMS=8000, tlsInsecure=True)
+    # certifi rather than tlsInsecure: the python.org macOS builds ship without
+    # a usable CA store, and the fix is to point at a real bundle, not to stop
+    # verifying. tlsInsecure=True would also disable hostname checking, which
+    # is what makes a connection MITM-able.
+    return MongoClient(
+        uri,
+        appname="riders",
+        serverSelectionTimeoutMS=8000,
+        tlsCAFile=certifi.where(),
+    )
 
 
 def db():
@@ -45,6 +56,10 @@ def riders():
     return db()["riders"]
 
 
+def odds():
+    return db()["odds"]
+
+
 def ensure_indexes():
     """Safe to call repeatedly; Mongo ignores an index that already exists."""
     picks().create_index([("season", ASCENDING), ("week", ASCENDING)])
@@ -52,6 +67,7 @@ def ensure_indexes():
     picks().create_index([("rider", ASCENDING)])
     picks().create_index([("game_id", ASCENDING)])
     results().create_index([("season", ASCENDING), ("week", ASCENDING)], unique=True)
+    odds().create_index([("season", ASCENDING), ("week", ASCENDING)], unique=True)
 
 
 # ---------------------------------------------------------------- picks
@@ -149,6 +165,29 @@ def known_weeks(season=None):
     weeks = results().distinct("week", {"season": season})
     weeks += picks().distinct("week", {"season": season})
     return sorted({int(w) for w in weeks})
+
+
+# ---------------------------------------------------------------- odds
+
+def save_week_odds(season, week, lines, credits_remaining=None):
+    from .schema import now
+    doc = {
+        "season": int(season), "week": int(week),
+        "updated_at": now(), "credits_remaining": credits_remaining,
+        "lines": lines,
+    }
+    odds().update_one({"season": int(season), "week": int(week)},
+                      {"$set": doc}, upsert=True)
+    return doc
+
+
+def get_week_odds(season, week):
+    return odds().find_one({"season": int(season), "week": int(week)})
+
+
+def week_lines(season, week):
+    """Just the ``{game_id: {...}}`` map, or {} when nothing is stored."""
+    return (get_week_odds(season, week) or {}).get("lines") or {}
 
 
 # ---------------------------------------------------------------- riders
