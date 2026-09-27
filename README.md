@@ -138,6 +138,8 @@ None of the historical picks recorded a size, so each seeds at 1 unit. Pass
 2. Set **Root Directory** to `riders_dashboard`.
 3. Settings → Environment Variables → add `MONGODB_URI` (and `RIDERS_SEASON`
    if it isn't 2026). Apply to Production, Preview and Development.
+4. Actions → add repository secrets `MONGODB_URI` and optionally `ODDS_API_KEY`.
+  The workflows in `.github/workflows/` run `scripts/sync.py` on schedule.
 4. Deploy. You get `https://<project>.vercel.app`.
 
 Check `https://<project>.vercel.app/api/health` first — it pings Atlas and
@@ -227,6 +229,59 @@ python3 scripts/sync.py --force-odds     # refresh lines even if cached
 ```
 
 Safe to run repeatedly. It only writes a result that changed.
+
+## Testing the full pipeline locally
+
+These steps exercise the bot → Mongo → sync → board flow on your machine.
+
+1. Create a virtualenv and install dependencies:
+
+```bash
+cd riders_dashboard
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+2. Set required environment variables (use a real Atlas URI):
+
+```bash
+export MONGODB_URI='mongodb+srv://<user>:<pass>@cluster/...'
+export RIDERS_SEASON=2026   # optional, defaults to 2026
+export ODDS_API_KEY='...'   # optional, only needed for line fact-checking
+```
+
+3. Seed the DB (preview first, then write):
+
+```bash
+.venv/bin/python scripts/seed.py --dry-run
+.venv/bin/python scripts/seed.py
+```
+
+4. Run the sync once to fetch ESPN scores and grade picks:
+
+```bash
+.venv/bin/python scripts/sync.py --all
+```
+
+5. Start the local dev server (serves static site + the `/api/*` handlers):
+
+```bash
+.venv/bin/python scripts/dev_server.py
+# then open http://localhost:8000
+```
+
+6. Verify the API and the board:
+
+```bash
+curl -sS http://localhost:8000/api/health | jq .
+curl -sS http://localhost:8000/api/bootstrap | jq .
+# Open http://localhost:8000 in a browser and confirm the status line shows "Live"
+```
+
+Notes:
+- If `MONGODB_URI` is not set, the board falls back to the committed JSON in `data/` (static snapshot).
+- On macOS system Python you may need `--insecure` when running `scripts/sync.py` (see above).
+
 
 ## Things worth knowing
 
